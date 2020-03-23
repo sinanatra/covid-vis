@@ -10,7 +10,7 @@
 
 <body>
     <div class="date">
-        <input type="date" id="datePicker"   value="<?php echo date('Y-m-d'); ?>" min="2020-02-25" max="2020-03-31">
+        <input type="date" id="datePicker"   value="2020-03-20" min="2020-02-25" max="">
     </div>
     <section>
         <div class="maps">
@@ -19,6 +19,12 @@
     </section>
 
 </body>
+<style>
+    input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+</style>
 <script>
     $(document).ready( function() {
     var now = new Date();
@@ -28,8 +34,8 @@
 
     var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
-
-   $('#datePicker').val(today);
+   $('#datePicker').attr({
+   "max" : today});
 });
 </script>
 <script src="./assets/app.js"></script>
