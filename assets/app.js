@@ -85,6 +85,7 @@ async function loadMarkers(features, data) {
 (async () => {
     await loadMap();
     const geojson = await loadData('province');
+    loadMarkers(geojson,"2020-03-22");
 
     globalThis.$('.date input').change(async function () {
         console.log(this.value)
