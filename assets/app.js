@@ -29,8 +29,6 @@ async function loadMap() {
         .attr("width", width)
         .attr("height", height);
 
- 
-
     globalThis.d3.geoIdentity().fitSize([width, height], italy)
 
 
@@ -40,8 +38,6 @@ async function loadMap() {
         .datum(italy)
         .attr('d', path)
         .attr('class', 'mappa')
-        .style('stroke', 'black')
-        .style('stroke-width', '.5px')
         .style('fill', 'none')
 };
 
@@ -120,6 +116,8 @@ async function loadMarkers(features, data) {
         .enter()
         .append("path")
         .attr("d", path)
+        .style('stroke', 'black')
+        .style('stroke-width', '.2px')
         .style("fill", function (d) {
             var value = d.properties.value;
             if (value) {
