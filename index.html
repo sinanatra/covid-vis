@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="./assets/libraries/d3.v5.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
     <script src="./assets/libraries/jquery.min.js"></script>
 </head>
 
@@ -15,6 +16,7 @@
     <section>
         <div class="maps">
             <div id="map"></div>
+            <div id="map1"></div>
         </div>
     </section>
 
@@ -23,6 +25,23 @@
     input[type=date]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     display: none;
+}
+.legendTitle {
+	font-size: 15px;
+	fill: #4F4F4F;
+	font-weight: 12;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: none; /*black;*/
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-family: Consolas, courier;
+ 	fill: #000;
+	font-size: 9pt;
 }
 </style>
 <script>
