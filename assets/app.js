@@ -1,14 +1,16 @@
 
 const height = 600;
-const width = 900;
+const width = 1200;
 let projection = [];
 let path = "";
 
 let italy = {};
 
 const color = globalThis.d3.scaleThreshold()
-    .domain([100, 1000, 2000, 3000, 4000, 5000, 6000])
-    .range(globalThis.d3.schemeBuPu[8]);
+    .domain([100, 500, 1000, 2000, 3000, 4000, 5000, 6500])
+    .range(globalThis.d3.schemeYlOrRd[9])
+
+    // .range("red", 'black');
 
 async function loadMap() {
     italy = await globalThis.d3.json('assets/json/province.geojson');
@@ -17,7 +19,7 @@ async function loadMap() {
         .center([11, 44])
         .scale(3200)
         .precision(0.1)
-        .fitSize([width, height], italy);
+        .fitSize([width/2, height], italy);
 
     path = globalThis.d3.geoPath()
         .projection(projection)
@@ -30,7 +32,11 @@ async function loadMap() {
         .attr("height", height);
 
     globalThis.d3.geoIdentity().fitSize([width, height], italy)
-
+    
+    // inserting the tooltip
+    const tooltip = globalThis.d3.select("body").append("div")	
+        .attr("class", "tooltip")				
+        .style("opacity", 0);
 
     const g = svg.append('g');
 
@@ -46,8 +52,9 @@ function loadData(data) {
 }
 
 async function loadMarkers(features, data) {
-
+    const svg = globalThis.d3.select('svg')
     const g = globalThis.d3.select('g')
+    const tooltip = globalThis.d3.select('.tooltip')
 
     let filteredData = []
 
@@ -62,12 +69,12 @@ async function loadMarkers(features, data) {
     // Draw the legend
     const format = globalThis.d3.format("d")
 
-    const legend = g => {
+    const legend = svg => {
         const x = globalThis.d3.scaleLinear()
             .domain(globalThis.d3.extent(color.domain()))
-            .rangeRound([0, 250]);
+            .rangeRound([0, 350]);
       
-        g.selectAll("rect")
+        svg.selectAll("rect")
           .data(color.range().map(d => color.invertExtent(d)))
           .join("rect")
             .attr("height", 8)
@@ -75,7 +82,7 @@ async function loadMarkers(features, data) {
             .attr("width", d => x(d[1]) - x(d[0]))
             .attr("fill", d => color(d[0]));
       
-        g.append("text")
+        svg.append("text")
             .attr("class", "caption")
             .attr("x", x.range()[0])
             .attr("y", -6)
@@ -84,7 +91,7 @@ async function loadMarkers(features, data) {
             .attr("font-weight", "bold")
             .text("Affected by covid-19");
         
-        g.call(globalThis.d3.axisBottom(x)
+        svg.call(globalThis.d3.axisBottom(x)
             .tickSize(13)
             .tickFormat(format)
             .tickValues(color.range().slice(1).map(d => color.invertExtent(d)[0])))
@@ -92,7 +99,7 @@ async function loadMarkers(features, data) {
             .remove();
       }
       
-      g.append("g")
+      svg.append("g")
         .attr("transform", "translate(600,40)")
         .call(legend);
 
@@ -125,7 +132,19 @@ async function loadMarkers(features, data) {
             } else {
                 return "#f9f9f9"
             }
-
+        })
+        .on("mousedown", function(d) {		
+            tooltip.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            tooltip.html(d.properties.NOME_PRO + '<br>' + d.properties.value + ' casi')	
+                .style("left", (globalThis.d3.event.pageX) + "px")		
+                .style("top", (globalThis.d3.event.pageY - 28) + "px");	
+            })					
+        .on("mouseout", function(d) {		
+            tooltip.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
         });
 
     // g.selectAll('circle')
@@ -138,21 +157,21 @@ async function loadMarkers(features, data) {
     //     .style('stroke', 'tan')
     //     .attr('r', d => d.totale_casi / 100)
 
-    g.selectAll('text')
-        .data(filteredData)
-        .enter()
-        .append("text")
-        .attr('dx', d => projection([d.long, d.lat])[0])
-        .attr('dy', d => projection([d.long, d.lat])[1])
-        .style('fill', 'black')
-        .style("font-size", "10px")
-        .text(function (d){
-            if (d.totale_casi > 1000){
-                return d.denominazione_provincia
-            }
-        });
+    // g.selectAll('text')
+    //     .data(filteredData)
+    //     .enter()
+    //     .append("text")
+    //     .attr('dx', d => projection([d.long, d.lat])[0])
+    //     .attr('dy', d => projection([d.long, d.lat])[1])
+    //     .style('fill', 'black')
+    //     .style("font-size", "10px")
+    //     .text(function (d){
+    //         if (d.totale_casi > 2000){
+    //             return d.denominazione_provincia
+    //         }
+    //     });
 
-
+       
 }
 
 (async () => {
