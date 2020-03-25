@@ -1,63 +1,17 @@
+import {population, italy as italyPromise} from '../maps/data.js';
 
-const height = 600;
-const width = 1200;
-let projection = [];
-let path = "";
+export async function loadPercentageMap(features, id, data) {
+    const pop = await population;
+    const italy = await italyPromise;
 
-let italy = {};
+    const svg = globalThis.d3.select('#svg' + id + ' svg')
+    const g = globalThis.d3.select('#g' + id)
 
-const color = globalThis.d3.scaleThreshold()
-    .domain([0.2,0.5, 1, 2, 3, 4, 5, 6])
-    // .domain([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8])
-
-    .range(globalThis.d3.schemeYlOrRd[9])
-
-    // .range("red", 'black');
-
-async function loadMap() {
-    italy = await globalThis.d3.json('../../assets/json/province.geojson');
-
-
-    projection = globalThis.d3.geoEquirectangular()
-        .center([11, 44])
-        .scale(3200)
-        .precision(0.1)
-        .fitSize([width/2, height], italy);
-
-    path = globalThis.d3.geoPath()
-        .projection(projection)
-
-    const svg = globalThis.d3.select('#map')
-        .append('div')
-        .attr('id', 'svg')
-        .append('svg')
-        .attr("width", width)
-        .attr("height", height);
-
-    globalThis.d3.geoIdentity().fitSize([width, height], italy)
-    
-    // inserting the tooltip
-    const tooltip = globalThis.d3.select("body").append("div")	
-        .attr("class", "tooltip")				
-        .style("opacity", 0);
-
-    const g = svg.append('g');
-
-    g.append('path')
-        .datum(italy)
-        .attr('d', path)
-        .attr('class', 'mappa')
-        .style('fill', 'none')
-};
-
-function loadData(data) {
-    return globalThis.d3.json('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-' + data + '.json');
-}
-
-async function loadMarkers(features, data) {
-    const svg = globalThis.d3.select('svg')
-    const g = globalThis.d3.select('g')
     const tooltip = globalThis.d3.select('.tooltip')
+
+    let color = globalThis.d3.scaleThreshold()
+        .domain([0.2,0.5, 1, 2, 3, 4, 5, 6])
+        .range(globalThis.d3.schemeYlOrRd[9])
 
     let filteredData = []
 
@@ -107,7 +61,6 @@ async function loadMarkers(features, data) {
     //  Merge geojson and filteredData
     for (let i = 0; i < filteredData.length; i++) {
         let dataState = filteredData[i].denominazione_provincia;
-
         let dataValue = parseFloat(filteredData[i].totale_casi);
 
         for (let n = 0; n < italy.features.length; n++) {
@@ -121,12 +74,11 @@ async function loadMarkers(features, data) {
     }
 
      //  Merge geojson and population ISTAT
+ 
 
-     let population = await globalThis.d3.csv('../../dataset/tavola_pop_res.csv');
-
-     for (let i = 0; i < population.length; i++) {
-        let dataState = population[i].Province;
-        let dataValue = parseFloat(population[i].total);
+    for (let i = 0; i < pop.length; i++) {
+        let dataState = pop[i].Province;
+        let dataValue = parseFloat(pop[i].total);
         
         for (let n = 0; n < italy.features.length; n++) {
             let jsonState = italy.features[n].properties.NOME_PRO;
@@ -139,12 +91,11 @@ async function loadMarkers(features, data) {
             }
         }
     }
-
     g.selectAll("path")
         .data(italy.features)
         .enter()
         .append("path")
-        .attr("d", path)
+        .attr("d", globalThis.path)
         .style('stroke', 'black')
         .style('stroke-width', '.2px')
         .style("fill", function (d) {
@@ -170,21 +121,3 @@ async function loadMarkers(features, data) {
         });
        
 }
-
-(async () => {
-    await loadMap();
-    const geojson = await loadData('province');
-    loadMarkers(geojson, "2020-03-22");
-
-    globalThis.$('.date input').change(async function () {
-        globalThis.d3.selectAll('circle').remove()
-        globalThis.d3.selectAll('text').remove()
-        globalThis.d3.selectAll('path').remove()
-        globalThis.d3.selectAll('rect').remove()
-
-        loadMarkers(geojson, this.value);
-
-    });
-})();
-
-
