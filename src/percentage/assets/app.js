@@ -122,7 +122,7 @@ async function loadMarkers(features, data) {
 
      //  Merge geojson and population ISTAT
 
-     let population = await globalThis.d3.csv('../../../dataset/tavola_pop_res.csv');
+     let population = await globalThis.d3.csv('../../dataset/tavola_pop_res.csv');
 
      for (let i = 0; i < population.length; i++) {
         let dataState = population[i].Province;
