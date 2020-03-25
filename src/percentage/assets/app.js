@@ -15,7 +15,7 @@ const color = globalThis.d3.scaleThreshold()
     // .range("red", 'black');
 
 async function loadMap() {
-    italy = await globalThis.d3.json('../../../assets/json/province.geojson');
+    italy = await globalThis.d3.json('../../assets/json/province.geojson');
 
 
     projection = globalThis.d3.geoEquirectangular()
