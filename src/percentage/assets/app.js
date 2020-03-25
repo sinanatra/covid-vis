@@ -7,13 +7,16 @@ let path = "";
 let italy = {};
 
 const color = globalThis.d3.scaleThreshold()
-    .domain([100, 500, 1000, 2000, 3000, 4000, 5000, 6500])
+    .domain([0.2,0.5, 1, 2, 3, 4, 5, 6])
+    // .domain([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8])
+
     .range(globalThis.d3.schemeYlOrRd[9])
 
     // .range("red", 'black');
 
 async function loadMap() {
-    italy = await globalThis.d3.json('assets/json/province.geojson');
+    italy = await globalThis.d3.json('../../../assets/json/province.geojson');
+
 
     projection = globalThis.d3.geoEquirectangular()
         .center([11, 44])
@@ -64,10 +67,8 @@ async function loadMarkers(features, data) {
         }
     });
 
-    console.log(filteredData)
-
     // Draw the legend
-    const format = globalThis.d3.format("d")
+    const format = globalThis.d3.format(".1f")
 
     const legend = svg => {
         const x = globalThis.d3.scaleLinear()
@@ -89,7 +90,7 @@ async function loadMarkers(features, data) {
             .attr("fill", "#000")
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
-            .text("Affected by covid-19");
+            .text("Percentage of population per region affected by COVID-19");
         
         svg.call(globalThis.d3.axisBottom(x)
             .tickSize(13)
@@ -118,6 +119,27 @@ async function loadMarkers(features, data) {
             }
         }
     }
+
+     //  Merge geojson and population ISTAT
+
+     let population = await globalThis.d3.csv('../../../dataset/tavola_pop_res.csv');
+
+     for (let i = 0; i < population.length; i++) {
+        let dataState = population[i].Province;
+        let dataValue = parseFloat(population[i].total);
+        
+        for (let n = 0; n < italy.features.length; n++) {
+            let jsonState = italy.features[n].properties.NOME_PRO;
+            
+            if (dataState == jsonState) {
+                
+                let populationPercentage =  (italy.features[n].properties.value * 100) / dataValue
+                italy.features[n].properties.percentage = populationPercentage;
+                break;
+            }
+        }
+    }
+
     g.selectAll("path")
         .data(italy.features)
         .enter()
@@ -126,18 +148,18 @@ async function loadMarkers(features, data) {
         .style('stroke', 'black')
         .style('stroke-width', '.2px')
         .style("fill", function (d) {
-            var value = d.properties.value;
-            if (value) {
+            var value = d.properties.percentage;
+            if (value > 0.2) {
                 return color(value);
             } else {
                 return "#f9f9f9"
             }
         })
-        .on("mousedown", function(d) {		
+        .on("mouseover", function(d) {		
             tooltip.transition()		
                 .duration(200)		
                 .style("opacity", .9);		
-            tooltip.html(d.properties.NOME_PRO + '<br>' + d.properties.value + ' casi')	
+            tooltip.html(d.properties.NOME_PRO + '<br>' +  Math.round( d.properties.percentage  * 100) / 100+ ' %')	
                 .style("left", (globalThis.d3.event.pageX) + "px")		
                 .style("top", (globalThis.d3.event.pageY - 28) + "px");	
             })					
@@ -146,31 +168,6 @@ async function loadMarkers(features, data) {
                 .duration(500)		
                 .style("opacity", 0);	
         });
-
-    // g.selectAll('circle')
-    //     .data(filteredData)
-    //     .enter()
-    //     .append('circle')
-    //     .attr('cx', d => projection([d.long, d.lat])[0])
-    //     .attr('cy', d => projection([d.long, d.lat])[1])
-    //     .style('fill', 'none')
-    //     .style('stroke', 'tan')
-    //     .attr('r', d => d.totale_casi / 100)
-
-    // g.selectAll('text')
-    //     .data(filteredData)
-    //     .enter()
-    //     .append("text")
-    //     .attr('dx', d => projection([d.long, d.lat])[0])
-    //     .attr('dy', d => projection([d.long, d.lat])[1])
-    //     .style('fill', 'black')
-    //     .style("font-size", "10px")
-    //     .text(function (d){
-    //         if (d.totale_casi > 2000){
-    //             return d.denominazione_provincia
-    //         }
-    //     });
-
        
 }
 
@@ -178,10 +175,8 @@ async function loadMarkers(features, data) {
     await loadMap();
     const geojson = await loadData('province');
     loadMarkers(geojson, "2020-03-22");
-    console.log(geojson)
 
     globalThis.$('.date input').change(async function () {
-        console.log(this.value)
         globalThis.d3.selectAll('circle').remove()
         globalThis.d3.selectAll('text').remove()
         globalThis.d3.selectAll('path').remove()
