@@ -6,6 +6,13 @@ import {loadCloropethMap} from './maps/cloropethMap.js';
 
 globalThis.height = 600;
 globalThis.width = 1200;
+globalThis.colorInterpolator = globalThis.d3.interpolateRgb("#F4E5D2", "#FF6600");
+globalThis.colorInterpolator = globalThis.d3.interpolateRgb("rgb(255, 213, 61)", "rgb(137, 145, 234)");
+
+globalThis.steps = 9;
+globalThis.colorArray = globalThis.d3.range(0, (1 + 1 / steps), 1 / (steps - 1)).map(function(d) {
+    return colorInterpolator(d)
+});
 
 (async () => { 
     await loadMap('map');
@@ -22,7 +29,7 @@ globalThis.width = 1200;
         globalThis.d3.selectAll('text').remove()
         globalThis.d3.selectAll('path').remove()
         globalThis.d3.selectAll('rect').remove()
-        
+
         loadCirclesMap(geojson, 'map',this.value);
         loadCloropethMap(geojson,'map1', this.value);
         loadPercentageMap(geojson,'map2' ,this.value);

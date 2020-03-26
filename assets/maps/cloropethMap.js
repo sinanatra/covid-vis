@@ -10,7 +10,7 @@ export async function loadCloropethMap(features, id, data) {
 
     const color = globalThis.d3.scaleThreshold()
         .domain([100, 500, 1000, 2000, 3000, 4000, 5000, 6500])
-        .range(globalThis.d3.schemeYlOrRd[9])
+        .range(colorArray)
 
     let filteredData = []
 

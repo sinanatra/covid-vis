@@ -1,5 +1,6 @@
 import { population, italy as italyPromise } from '../maps/data.js';
 
+
 export async function loadCirclesMap(features, id, data) {
     const pop = await population;
     const italy = await italyPromise;
@@ -7,10 +8,6 @@ export async function loadCirclesMap(features, id, data) {
     const svg = globalThis.d3.select('#svg' + id + ' svg')
     const g = globalThis.d3.select('#g' + id)
     const tooltip = globalThis.d3.select('.tooltip')
-
-    let color = globalThis.d3.scaleThreshold()
-        .domain([0.2, 0.5, 1, 2, 3, 4, 5, 6])
-        .range(globalThis.d3.schemeYlOrRd[9])
 
     let filteredData = []
 
@@ -51,9 +48,9 @@ export async function loadCirclesMap(features, id, data) {
         .append('circle')
         .attr('cx', d => globalThis.projection([d.long, d.lat])[0])
         .attr('cy', d => globalThis.projection([d.long, d.lat])[1])
-        .style('fill', 'red')
-        .style('stroke', 'red')
-        .style('opacity', '.2')
+        .style('fill', 'rgb(152, 154, 212)')
+        .style('stroke', 'rgb(152, 154, 212)')
+        .style('opacity', '.7')
         .attr('r', d => d.totale_casi / 100)
 
         .on("mouseover", function (d) {

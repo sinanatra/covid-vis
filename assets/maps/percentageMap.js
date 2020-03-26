@@ -11,7 +11,7 @@ export async function loadPercentageMap(features, id, data) {
 
     let color = globalThis.d3.scaleThreshold()
         .domain([0.2,0.5, 1, 2, 3, 4, 5, 6])
-        .range(globalThis.d3.schemeYlOrRd[9])
+        .range(colorArray)
 
     let filteredData = []
 
