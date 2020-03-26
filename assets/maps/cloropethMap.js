@@ -92,7 +92,7 @@ export async function loadCloropethMap(features, id, data) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
-            tooltip.html(d.properties.NOME_PRO + '<br>' + d.properties.value + ' casi')
+            tooltip.html(d.properties.NOME_PRO + '<br>' + d.properties.value + ' cases')
                 .style("left", (globalThis.d3.event.pageX) + "px")
                 .style("top", (globalThis.d3.event.pageY - 28) + "px");
         })

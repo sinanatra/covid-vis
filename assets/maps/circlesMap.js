@@ -57,7 +57,7 @@ export async function loadCirclesMap(features, id, data) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
-            tooltip.html(d.totale_casi + ' casi')
+            tooltip.html(d.totale_casi + ' cases')
                 .style("left", (globalThis.d3.event.pageX) + "px")
                 .style("top", (globalThis.d3.event.pageY - 28) + "px");
         })
