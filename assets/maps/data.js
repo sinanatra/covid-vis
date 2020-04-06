@@ -1,4 +1,4 @@
-export const population = globalThis.d3.csv('./dataset/tavola_pop_res.csv');
+export const population = globalThis.d3.csv('./assets/dataset/tavola_pop_res.csv');
 export const italy = globalThis.d3.json('./assets/json/province.geojson');
 export const europeFocus = globalThis.d3.json('./assets/json/europe-focus.geojson');
 
