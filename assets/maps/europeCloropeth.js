@@ -1,10 +1,13 @@
 
-import { loadData, loadDataFrance } from '../maps/data.js';
+import { loadData, loadDataFrance, loadDataGermany, loadDataAustria, loadDataSwitzerland } from '../maps/data.js';
 import { population, europeFocus as europeFocusPromise } from '../maps/data.js';
 
 export async function loadEuropeCloropeth(id, data) {
     let jsonIta = await loadData('province');
     let jsonFrance = await loadDataFrance();
+    let jsonSwitzerland = await loadDataSwitzerland();
+    let jsonGermany = await loadDataGermany();
+    let jsonAustria = await loadDataAustria();
 
     const europe = await europeFocusPromise;
 
@@ -13,7 +16,7 @@ export async function loadEuropeCloropeth(id, data) {
     const tooltip = globalThis.d3.select('.tooltip')
 
     const color = globalThis.d3.scaleThreshold()
-        .domain([100, 500, 1000, 2000, 3000, 4000, 5000, 6500])
+        .domain([100, 500, 1000, 2000, 3000, 4000, 5000, 6000])
         .range(colorArray)
 
     let filteredData = []
@@ -26,6 +29,24 @@ export async function loadEuropeCloropeth(id, data) {
 
     jsonFrance.forEach(element => {
         if (element.date.includes(data)) {
+            filteredData.push(element)
+        }
+    });
+
+    jsonGermany.forEach(element => {
+        if (element.date.includes(data)) {
+            filteredData.push(element)
+        }
+    });
+
+    jsonAustria.forEach(element => {
+        if (element.date.includes(data)) {
+            filteredData.push(element)
+        }
+    });
+
+    jsonSwitzerland.forEach(element => {
+        if (element.datetime.includes(data)) {
             filteredData.push(element)
         }
     });
@@ -70,25 +91,49 @@ export async function loadEuropeCloropeth(id, data) {
     //  Merge geojson and filteredData
     for (let i = 0; i < filteredData.length; i++) {
         let dataItaly = filteredData[i].denominazione_provincia;
+
         let dataFrance = filteredData[i].nom;
+        let dataGermany = filteredData[i].label;
+        let dataAustria = filteredData[i];
+        let dataSwitzerland = filteredData[i].nuts_2;
 
         let affectedItaly = parseFloat(filteredData[i].totale_casi);
         let affectedFrance = parseFloat(filteredData[i].casConfirmes);
-        
+        let affectedGermany = parseFloat(filteredData[i].confirmed);
+        let affectedAustria = parseFloat(filteredData[i].total_cases);
+        let affectedSwitzerland = parseFloat(filteredData[i].cases);
 
         for (let n = 0; n < europe.features.length; n++) {
 
-            let jsonState = europe.features[n].properties.NAME_2;
+            let name1 = europe.features[n].properties.NAME_1;
+            let name2 = europe.features[n].properties.NAME_2;
+            let iso = europe.features[n].properties.ISO;
 
-            if (dataItaly == jsonState) {
+            if (dataItaly == name2) {
                 europe.features[n].properties.value = affectedItaly;
                 break;
             }
-            else if (dataFrance == jsonState) {
-                // FIXING THE FRANCE JSON
-                if (!Number.isNaN(affectedFrance)) {
+            if (dataFrance == name2) {
+                // Fixing the french json
+                if (!isNaN(affectedFrance)) {
                     europe.features[n].properties.value = affectedFrance;
+                    break;
                 }
+            }
+
+            // if (dataSwitzerland == iso) {
+            //     europe.features[n].properties.value = affectedSwitzerland;
+            //     break
+            // }
+
+            if (dataGermany == name2) {
+                europe.features[n].properties.value = affectedGermany;
+                break;
+            }
+
+            console.log(dataAustria, name2)
+            if (dataAustria.name2 == name2) {
+                europe.features[n].properties.value = affectedAustria;
                 break;
             }
         }
@@ -103,7 +148,7 @@ export async function loadEuropeCloropeth(id, data) {
         .style('stroke-width', '.2px')
         .style("fill", function (d) {
             var value = d.properties.value;
-            if (value > 100) {
+            if (value > 10) {
                 return color(value);
             } else {
                 return "#f9f9f9"

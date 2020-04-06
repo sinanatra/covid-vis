@@ -1,0 +1,191 @@
+body {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.line {
+    fill: none;
+    stroke: rgb(137, 145, 234);
+    color: rgb(137, 145, 234);
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: bevel;
+}
+
+.line2 {
+    stroke: rgb(255, 213, 61);
+    color: rgb(255, 213, 61);
+}
+
+.line3 {
+    stroke: orangered;
+}
+
+#searchWord:active {
+    background-color: rgba(0, 0, 0, 0.175);
+    ;
+}
+
+ul {
+    position: absolute;
+    width: 350px;
+    z-index: 100;
+    transition: background 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+ul li:hover {
+    background-color: rgb(238, 238, 238);
+    cursor: pointer;
+}
+
+ul li {
+    display: block;
+    border-bottom: 1px solid grey;
+    font-size: 15px;
+    padding: 9px 15px 9px 15px;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.175);
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    width: 350px;
+    height: auto;
+    float: left;
+    outline: none;
+    border: none;
+    padding: 9px 15px 9px 15px;
+    
+    background-color: #ffffff;
+    vertical-align: bottom;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.element::before {
+    display: block;
+    padding: 0;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.search, .date {
+    padding: 2%;
+    height: 100px;
+    width: 50%;
+    width: 620px;
+    
+}
+
+
+ul {
+    position: absolute;
+    width: 350px;
+    z-index: 100;
+    transition: background 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+ul li:hover {
+    background-color: rgb(238, 238, 238);
+    cursor: pointer;
+}
+
+ul li {
+    display: block;
+    border-bottom: 1px solid grey;
+    font-size: 15px;
+    padding: 9px 15px 9px 15px;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.175);
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    width: 350px;
+    height: auto;
+    float: left;
+    outline: none;
+    border: none;
+    padding: 9px 15px 9px 15px;
+    
+    background-color: #ffffff;
+    vertical-align: bottom;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.element::before {
+    display: block;
+    padding: 0;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.search {
+    padding: 2%;
+    width: 50%;
+    width: 620px;
+    
+    margin-bottom: 50px;
+}
+
+*[role='status'] { 
+    display: none;
+}
+
+#tags, .date input {
+    font-size: 15px;
+    padding: 9px 15px 9px 15px;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.175);
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    height: auto;
+    float: left;
+    outline: none;
+    width: 350px; 
+    border-radius: 3px;
+    border: none; 
+    padding: 9px 15px 9px 15px;
+    
+    background-color: #ffffff;
+    vertical-align: bottom;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    cursor: text;
+}
+#searchWord {
+    width: 150px;
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    height: auto;
+    float: left;
+    background-color: rgb(255, 255, 255);
+    vertical-align: bottom;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 3px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    padding: 9px 15px;
+    margin: auto auto auto 10px;
+}
+
+/*  tooltip */
+
+#tooltipContainer {
+    width: 600px;
+    padding:5px;
+    height: 100px;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+}

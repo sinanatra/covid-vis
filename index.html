@@ -7,11 +7,19 @@
     <script src="./assets/libraries/d3.v5.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3-legend/1.1.0/d3-legend.js"></script>
     <script src="./assets/libraries/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 
 <body>
+    <section>
+        <div id="lineChart"></div>
+    </section>
+
     <div class="date">
-        <input type="date" id="datePicker"   value="2020-03-22" min="2020-02-25" max="">
+        <input type="date" id="datePicker" value="2020-03-22" min="2020-02-25" max="">
     </div>
     <section>
         <div class="maps">
@@ -22,55 +30,95 @@
         </div>
     </section>
 
+    <div class="search ui-widget">
+        <div class="search">
+            <input id="tags" placeholder="Cerca una regione" autocomplete="off">
+            <button id="searchWord">Cerca</button>
+            <div id="autocomplete"></div>
+        </div>
+    </div>
+
+    <section id="chart">
+        <div id='tooltipContainer'>
+            <h1 id='regionFocus'>Lombardia</h1>
+            <div id='tooltip'></div>
+        </div>
+        <div id="lineChart"></div>
+    </section>
+
 </body>
 <style>
     input[type=date]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    display: none;
-}
-.legendTitle {
-	font-size: 15px;
-	fill: #4F4F4F;
-	font-weight: 12;
-}
+        -webkit-appearance: none;
+        display: none;
+    }
 
-.axis path, .axis line {
-	fill: none;
-	stroke: none; /*black;*/
-	shape-rendering: crispEdges;
-}
+    .legendTitle {
+        font-size: 15px;
+        fill: #4F4F4F;
+        font-weight: 12;
+    }
 
-.axis text {
-	font-family: Consolas, courier;
- 	fill: #000;
-	font-size: 9pt;
-}
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: none;
+        /*black;*/
+        shape-rendering: crispEdges;
+    }
 
-.tooltip {	
-    position: absolute;			
-    width: auto;					
-    padding: 5px;				
-    font: 12px sans-serif;		
-    background: white;	
-    color: black;
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
-}
+    .axis text {
+        font-family: Consolas, courier;
+        fill: #000;
+        font-size: 9pt;
+    }
 
+    .tooltip {
+        position: absolute;
+        width: auto;
+        padding: 5px;
+        font: 12px sans-serif;
+        background: white;
+        color: black;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+
+    .date {
+        position: fixed;
+    }
 </style>
 <script>
-    $(document).ready( function() {
-    var now = new Date();
- 
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    //  get today's date
+    $(document).ready(function () {
+        var now = new Date();
 
-    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-   $('#datePicker').attr({
-   "max" : today});
-});
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        $('#datePicker').attr({
+            "max": today
+        });
+    });
+
+    // autocomplete with regions
+    $(function () {
+        var availableTags = ["Sicilia", "Piemonte", "Marche", "Valle d'Aosta", "Toscana", "Campania", "Puglia", "Veneto", "Lombardia", "Emilia-Romagna", "P.A. Trento", "P.A. Bolzano", "Sardegna", "Molise", "Calabria", "Abruzzo", "Lazio", "Liguria", "Friuli Venezia Giulia", "Basilicata", "Umbria"];
+
+        $("#tags").autocomplete({
+            appendTo: "#autocomplete",
+            source: availableTags,
+            messages: {
+                noResults: '',
+                results: function () { } // to do 
+            }
+
+        });
+    });
 </script>
 <script type="module" src="./assets/index.js"></script>
+
 </html>

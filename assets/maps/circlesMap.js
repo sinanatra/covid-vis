@@ -51,7 +51,7 @@ export async function loadCirclesMap(features, id, data) {
         .style('fill', 'rgb(152, 154, 212)')
         .style('stroke', 'rgb(152, 154, 212)')
         .style('opacity', '.7')
-        .attr('r', d => d.totale_casi / 100)
+        .attr('r', d => d.totale_casi / 250)
 
         .on("mouseover", function (d) {
             tooltip.transition()

@@ -41,12 +41,13 @@ export async function loadMap(id) {
 
 export async function loadEuropeMap(id){
     const europeFocus = await europeFocusPromise;
+    console.log(europeFocus)
     
     globalThis.europeProjection = globalThis.d3.geoEquirectangular()
-        .center([11, 44])
-        .scale(200)
+        .center([9.6, 45.6])
+        .scale(2000)
         .precision(0.1)
-        .fitSize([globalThis.width / 2, globalThis.height],  europeFocus);
+        // .fitSize([globalThis.width / 2, globalThis.height],  europeFocus);
 
     globalThis.europePath = globalThis.d3.geoPath()
         .projection(globalThis.europeProjection)
