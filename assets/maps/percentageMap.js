@@ -79,12 +79,10 @@ export async function loadPercentageMap(features, id, data) {
     for (let i = 0; i < pop.length; i++) {
         let dataState = pop[i].Province;
         let dataValue = parseFloat(pop[i].total);
-        
         for (let n = 0; n < italy.features.length; n++) {
             let jsonState = italy.features[n].properties.NOME_PRO;
             
             if (dataState == jsonState) {
-                
                 let populationPercentage =  (italy.features[n].properties.value * 100) / dataValue
                 italy.features[n].properties.percentage = populationPercentage;
                 break;
