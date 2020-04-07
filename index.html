@@ -14,9 +14,29 @@
 </head>
 
 <body>
-    <section>
+
+    <div class="search">
+        <div class="search">
+            <input id="tags" placeholder="Cerca una regione" autocomplete="off">
+            <button id="searchWord">Cerca</button>
+            <div id="autocomplete"></div>
+        </div>
+    </div>
+
+    <section id="chart">
+        <h1 id='regionFocus'>Lombardia</h1>
+        <div class="radio">
+            <input type="radio" name="scale" value="linear" checked>
+            <label for="linear">Scala Lineare</label>
+            <input type="radio" name="scale" value="log">
+            <label for="log">Sala Logaritmica</label>
+        </div>
+        <div id='tooltipContainer'>
+            <div id='tooltip'></div>
+        </div>
         <div id="lineChart"></div>
     </section>
+
 
     <div class="date">
         <input type="date" id="datePicker" value="2020-03-22" min="2020-02-25" max="">
@@ -30,21 +50,6 @@
         </div>
     </section>
 
-    <div class="search ui-widget">
-        <div class="search">
-            <input id="tags" placeholder="Cerca una regione" autocomplete="off">
-            <button id="searchWord">Cerca</button>
-            <div id="autocomplete"></div>
-        </div>
-    </div>
-
-    <section id="chart">
-        <div id='tooltipContainer'>
-            <h1 id='regionFocus'>Lombardia</h1>
-            <div id='tooltip'></div>
-        </div>
-        <div id="lineChart"></div>
-    </section>
 
 </body>
 <style>
