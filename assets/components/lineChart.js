@@ -67,8 +67,9 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
 
     svg.append("g")
         .call(globalThis.d3.axisLeft(y)
-            .ticks(5)
-            .tickFormat((d) => d))
+        .ticks(4)
+        .tickFormat((d) => d)
+        )
 
     // Tooltip
     const tipBox = svg.append('rect')
