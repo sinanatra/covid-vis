@@ -7,7 +7,7 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
             data.push(element)
         }
     });
-    globalThis.$('#tooltip').html('<p class="line"> Numero totale di casi: ' + globalThis.d3.max(inputdata, function (d) { return Math.max(d.totale_casi, d.dimessi_guariti); }) + '</p><p class="line2"> Numero totale di guariti: ' + globalThis.d3.max(inputdata, function (d) { return Math.max(d.dimessi_guariti, d.dimessi_guariti); }) + '</p>')
+    globalThis.$('#tooltip').html('<p class="line"> Numero totale di casi: ' + globalThis.d3.max(data, function (d) { return Math.max(d.totale_casi, d.dimessi_guariti); }) + '</p><p class="line2"> Numero totale di guariti: ' + globalThis.d3.max(inputdata, function (d) { return Math.max(d.dimessi_guariti, d.dimessi_guariti); }) + '</p>')
 
     const x = globalThis.d3.scaleTime().range([0, width]);
     x.domain(globalThis.d3.extent(data, function (d) { return new Date(d.data); }));
