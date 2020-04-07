@@ -4,16 +4,16 @@ body {
 
 .line {
     fill: none;
-    stroke: rgb(137, 145, 234);
-    color: rgb(137, 145, 234);
+    stroke: rgb(113, 105, 149);
+    color: rgb(113, 105, 149);
     stroke-width: 2px;
     stroke-linecap: round;
     stroke-linejoin: bevel;
 }
 
 .line2 {
-    stroke: rgb(255, 213, 61);
-    color: rgb(255, 213, 61);
+    stroke: rgb(81, 176, 81);
+    color: rgb(81, 176, 81);
 }
 
 .line3 {

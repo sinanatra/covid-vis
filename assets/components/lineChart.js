@@ -23,7 +23,7 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
     else {
         y = globalThis.d3.scaleLinear().range([height, 0])
             .domain([0, globalThis.d3.max(inputdata, function (d) { return Math.max(d.totale_casi, d.dimessi_guariti); })])
-            
+
     }
 
 
@@ -65,11 +65,13 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
         .attr("transform", "translate(0," + height + ")")
         .call(globalThis.d3.axisBottom(x))
 
+
+
+    const axisLeft = globalThis.d3.axisLeft(y);
+    axisLeft.ticks(4, "~s");
+    axisLeft.tickFormat((d) => d);
     svg.append("g")
-        .call(globalThis.d3.axisLeft(y)
-        .ticks(4)
-        .tickFormat((d) => d)
-        )
+        .call(axisLeft)
 
     // Tooltip
     const tipBox = svg.append('rect')
@@ -77,7 +79,7 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
         .attr('height', height)
         .attr('opacity', 0)
         .on('mousemove', drawTooltip)
- 
+
     function drawTooltip() {
         const time = (x.invert(globalThis.d3.mouse(tipBox.node())[0]));
         const options = { year: 'numeric', month: 'long', day: 'numeric' };

@@ -51,8 +51,11 @@ export async function loadCirclesMap(features, id, data) {
         .style('fill', 'rgb(152, 154, 212)')
         .style('stroke', 'rgb(152, 154, 212)')
         .style('opacity', '.7')
-        .attr('r', d => d.totale_casi / 250)
+        .attr('r', d => d.totale_casi / globalThis.d3.max(filteredData, function (d) { return Math.max(1, d.totale_casi)}))
+        
+        
 
+        
         .on("mouseover", function (d) {
             tooltip.transition()
                 .duration(200)
