@@ -1,14 +1,13 @@
-import { loadData, loadChart } from './maps/data.js';
-import { loadMap, loadEuropeMap } from './maps/loadMap.js';
-import { loadPercentageMap } from './maps/percentageMap.js';
-import { loadCirclesMap } from './maps/circlesMap.js';
-import { loadCloropethMap } from './maps/cloropethMap.js';
-import { loadEuropeCloropeth } from './maps/europeCloropeth.js';
-import { loadGraph } from './chart/lineChart.js';
+import { loadData, loadChart } from './components/data.js';
+import { loadMap } from './components/loadMap.js';
+import { loadPercentageMap } from './components/percentageMap.js';
+import { loadCirclesMap } from './components/circlesMap.js';
+import { loadCloropethMap } from './components/cloropethMap.js';
+import { loadGraph } from './components/lineChart.js';
 
 globalThis.margin = { top: 20, right: 20, bottom: 30, left: 50 },
-    globalThis.height = 960 - margin.left - margin.right,
-    globalThis.width = 1000 - margin.top - margin.bottom;
+    globalThis.height = 400 - margin.left - margin.right,
+    globalThis.width = 500 - margin.top - margin.bottom;
 
 globalThis.colorInterpolator = globalThis.d3.interpolateRgb("#F4E5D2", "#FF6600");
 globalThis.colorInterpolator = globalThis.d3.interpolateRgb("rgb(255, 213, 61)", "rgb(137, 145, 234)");
@@ -22,7 +21,6 @@ globalThis.colorArray = globalThis.d3.range(0, (1 + 1 / steps), 1 / (steps - 1))
     await loadMap('map');
     await loadMap('map1');
     await loadMap('map2');
-    // // await loadEuropeMap('europeFocus');
     const lineData = await loadChart();
     let searchedValue = 'Lombardia';
 

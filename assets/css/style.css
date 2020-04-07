@@ -22,7 +22,6 @@ body {
 
 #searchWord:active {
     background-color: rgba(0, 0, 0, 0.175);
-    ;
 }
 
 ul {
@@ -77,13 +76,6 @@ ul li {
     
 }
 
-
-ul {
-    position: absolute;
-    width: 350px;
-    z-index: 100;
-    transition: background 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
-}
 
 ul li:hover {
     background-color: rgb(238, 238, 238);
@@ -147,8 +139,7 @@ ul li {
     width: 350px; 
     border-radius: 3px;
     border: none; 
-    padding: 9px 15px 9px 15px;
-    
+    padding: 9px 15px 9px 15px;   
     background-color: #ffffff;
     vertical-align: bottom;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -188,4 +179,48 @@ ul li {
 h1 {
     font-size: 1.6rem;
     margin-bottom: 1rem;
+}
+
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+.legendTitle {
+    font-size: 15px;
+    fill: #4F4F4F;
+    font-weight: 12;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: none;
+    /*black;*/
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: Consolas, courier;
+    fill: #000;
+    font-size: 9pt;
+}
+
+.tooltip {
+    position: absolute;
+    width: auto;
+    padding: 5px;
+    font: 12px sans-serif;
+    background: white;
+    color: black;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.maps {
+    padding: 1rem;
+}
+.maps * {
+    float: left;
 }

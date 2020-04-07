@@ -76,13 +76,7 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
         .attr('height', height)
         .attr('opacity', 0)
         .on('mousemove', drawTooltip)
-        .on('mouseout', removeTooltip);
-
-    function removeTooltip() {
-        globalThis.$('#tooltip').html('<h1>'+(new Date(time)).toLocaleDateString('it-IT', options)+'</h1><p class="line"> Numero totale di casi: ' + globalThis.d3.max(inputdata, function (d) { return Math.max(d.totale_casi, d.dimessi_guariti); }) + '</p><p class="line2"> Numero totale di guariti: ' + globalThis.d3.max(inputdata, function (d) { return Math.max(d.dimessi_guariti, d.dimessi_guariti); }) + '</p>')
-    }
-
-
+ 
     function drawTooltip() {
         const time = (x.invert(globalThis.d3.mouse(tipBox.node())[0]));
         const options = { year: 'numeric', month: 'long', day: 'numeric' };

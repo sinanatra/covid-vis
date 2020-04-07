@@ -1,4 +1,4 @@
-import { population, italy as italyPromise } from '../maps/data.js';
+import { population, italy as italyPromise } from '../components/data.js';
 
 
 export async function loadCirclesMap(features, id, data) {
