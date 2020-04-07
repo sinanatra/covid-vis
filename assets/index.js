@@ -49,10 +49,14 @@ globalThis.colorArray = globalThis.d3.range(0, (1 + 1 / steps), 1 / (steps - 1))
         globalThis.$('#chart svg').remove()
         globalThis.$('#regionFocus').text(this.value)
         searchedValue = this.value;
+        
+        globalThis.$('.radio input[checked]').prop('checked', false);
+        globalThis.$('.radio input[value="linear"]').prop('checked', true);
+
         await loadGraph(lineData, searchedValue, 'linear');
     });
 
-    globalThis.$('.radio input[type="radio"').change(async function () {
+    globalThis.$('.radio input[type="radio"]').change(async function () {
         globalThis.$('#chart svg').remove()
         await loadGraph(lineData, searchedValue, this.value);
     })
