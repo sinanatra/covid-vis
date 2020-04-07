@@ -63,7 +63,8 @@ export async function loadGraph(inputdata, denominazione_regione, toggle) {
     //  x and y axis
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
-        .call(globalThis.d3.axisBottom(x))
+        .call(globalThis.d3.axisBottom(x)
+            .ticks(4))
 
 
 
