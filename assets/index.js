@@ -18,7 +18,7 @@ globalThis.colorArray = globalThis.d3.range(0, (1 + 1 / steps), 1 / (steps - 1))
 });
 
 (async () => {
-    await loadMap('map');
+    // await loadMap('map');
     await loadMap('map1');
     await loadMap('map2');
     const lineData = await loadChart();
