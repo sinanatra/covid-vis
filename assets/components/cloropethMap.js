@@ -44,7 +44,7 @@ export async function loadCloropethMap(features, id, data) {
             .attr("fill", "#000")
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
-            .text("People affected by COVID-19");
+            .text("Numero di persone colpite da COVID-19");
 
         svg.call(globalThis.d3.axisBottom(x)
             .tickSize(13)

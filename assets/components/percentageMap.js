@@ -44,7 +44,7 @@ export async function loadPercentageMap(features, id, data) {
             .attr("fill", "#000")
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
-            .text("Percentage of population per region affected by COVID-19");
+            .text("Percentuale della popolazione per regione colpita da COVID-19");
         
         svg.call(globalThis.d3.axisBottom(x)
             .tickSize(13)
@@ -98,7 +98,7 @@ export async function loadPercentageMap(features, id, data) {
         .style('stroke-width', '.2px')
         .style("fill", function (d) {
             var value = d.properties.percentage;
-            if (value > 0.2) {
+            if (value > 0.25) {
                 return color(value);
             } else {
                 return "#f9f9f9"

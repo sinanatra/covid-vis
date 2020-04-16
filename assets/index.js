@@ -28,9 +28,9 @@ globalThis.colorArray = globalThis.d3.range(0, (1 + 1 / steps), 1 / (steps - 1))
 
     const jsonItaProvinces = await loadData('province');
 
-    loadCirclesMap(jsonItaProvinces, 'map', "2020-03-22");
-    loadCloropethMap(jsonItaProvinces, 'map1', "2020-03-22");
-    loadPercentageMap(jsonItaProvinces, 'map2', "2020-03-22");
+    loadCirclesMap(jsonItaProvinces, 'map', "2020-04-15");
+    loadCloropethMap(jsonItaProvinces, 'map1', "2020-04-15");
+    loadPercentageMap(jsonItaProvinces, 'map2', "2020-04-15");
 
     globalThis.$('.date input').change(async function () {
         globalThis.d3.selectAll('.maps circle').remove()
