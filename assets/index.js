@@ -5,9 +5,9 @@ import { loadCirclesMap } from './components/circlesMap.js';
 import { loadCloropethMap } from './components/cloropethMap.js';
 import { loadGraph } from './components/lineChart.js';
 
-globalThis.margin = { top: 20, right: 20, bottom: 30, left: 50 },
+globalThis.margin = { top: 80, right: 20, bottom: 30, left: 50 },
     globalThis.height = 400 - margin.left - margin.right,
-    globalThis.width = 500 - margin.top - margin.bottom;
+    globalThis.width = 620 - margin.top - margin.bottom;
 
 globalThis.colorInterpolator = globalThis.d3.interpolateRgb("#F4E5D2", "#FF6600");
 globalThis.colorInterpolator = globalThis.d3.interpolateRgb("rgb(255, 213, 61)", "rgb(137, 145, 234)");

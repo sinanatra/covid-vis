@@ -27,7 +27,7 @@ export async function loadPercentageMap(features, id, data) {
     const legend = svg => {
         const x = globalThis.d3.scaleLinear()
             .domain(globalThis.d3.extent(color.domain()))
-            .rangeRound([0, 350]);
+            .rangeRound([0, 300]);
       
         svg.selectAll("rect")
           .data(color.range().map(d => color.invertExtent(d)))

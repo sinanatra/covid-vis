@@ -17,7 +17,8 @@ export async function loadMap(id) {
         .attr('id', 'svg' + id)
         .append('svg')
         .attr("width", globalThis.width)
-        .attr("height", globalThis.height);
+        .attr("height", globalThis.height)
+        .attr("viewBox", '0  0' + ' ' +  globalThis.width + ' ' + globalThis.height)
 
     globalThis.d3.geoIdentity().fitSize([globalThis.width, globalThis.height],  italy)
     
