@@ -72,7 +72,7 @@ ul li {
 }
 
 .search, .date {
-    padding: 2%;
+    /* padding: 2%; */
     height: 100px;
     width: 50%;
     width: 620px;
@@ -118,7 +118,7 @@ ul li {
 }
 
 .search {
-    padding: 2%;
+    /* padding: 2%; */
     width: 50%;
     width: 620px;
     
